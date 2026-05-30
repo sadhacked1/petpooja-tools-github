@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Petpooja Tools</title>
+    <meta
+      name="description"
+      content="Browser-only Excel and CSV tools for splitting files, merging columns, and converting line lists."
+    />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Tool navigation">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">P</div>
+          <div>
+            <p>Petpooja</p>
+            <strong>Tools</strong>
+          </div>
+        </div>
+
+        <nav class="tool-tabs" aria-label="Tools">
+          <button class="tab-button is-active" type="button" data-tool="splitter">
+            <i data-lucide="split-square-horizontal"></i>
+            File Splitter
+          </button>
+          <button class="tab-button" type="button" data-tool="correction">
+            <i data-lucide="package-open"></i>
+            999 Splitter
+          </button>
+          <button class="tab-button" type="button" data-tool="merger">
+            <i data-lucide="combine"></i>
+            Column Merger
+          </button>
+          <button class="tab-button" type="button" data-tool="separator">
+            <i data-lucide="list-filter"></i>
+            Separator
+          </button>
+        </nav>
+
+        <div class="privacy-note">
+          <i data-lucide="shield-check"></i>
+          <span>Runs in your browser. Files are not uploaded.</span>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Excel and CSV utility desk</p>
+            <h1>Fast daily tools for Petpooja workflows</h1>
+          </div>
+          <div class="status-pill" id="libraryStatus">
+            <i data-lucide="loader-circle"></i>
+            Loading file tools
+          </div>
+        </header>
+
+        <section class="metrics" aria-label="Tool highlights">
+          <div>
+            <span>4</span>
+            <p>Tools</p>
+          </div>
+          <div>
+            <span>0</span>
+            <p>Server uploads</p>
+          </div>
+          <div>
+            <span>CSV</span>
+            <p>Excel supported</p>
+          </div>
+        </section>
+
+        <section class="tool-panel is-visible" id="splitter" aria-labelledby="splitter-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Custom row batches</p>
+              <h2 id="splitter-title">CSV / Excel Splitter</h2>
+            </div>
+            <i data-lucide="rows-3"></i>
+          </div>
+
+          <div class="tool-grid">
+            <div class="drop-zone" data-drop="splitter">
+              <input id="splitFile" type="file" accept=".csv,.xlsx,.xls" />
+              <i data-lucide="upload-cloud"></i>
+              <strong>Drop your CSV or Excel file</strong>
+              <span>or click to browse</span>
+            </div>
+
+            <div class="controls">
+              <label for="splitRows">Rows per file</label>
+              <input id="splitRows" type="number" min="1" value="5000" />
+              <label class="check-row" for="splitHeader">
+                <input id="splitHeader" type="checkbox" checked />
+                Keep header row in every part
+              </label>
+              <button class="primary-action" type="button" id="splitButton">
+                <i data-lucide="download"></i>
+                Split & Download
+              </button>
+              <p class="result" id="splitResult" role="status"></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="tool-panel" id="correction" aria-labelledby="correction-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Correction upload format</p>
+              <h2 id="correction-title">999 Row Splitter</h2>
+            </div>
+            <i data-lucide="archive"></i>
+          </div>
+
+          <div class="tool-grid">
+            <div class="drop-zone" data-drop="correction">
+              <input id="correctionFile" type="file" accept=".csv,.xlsx,.xls" />
+              <i data-lucide="file-up"></i>
+              <strong>Drop correction file</strong>
+              <span>Each part keeps the header row</span>
+            </div>
+
+            <div class="controls">
+              <div class="fixed-number">
+                <span>999</span>
+                <p>Rows per file</p>
+              </div>
+              <button class="primary-action" type="button" id="correctionButton">
+                <i data-lucide="download"></i>
+                Split & Download ZIP
+              </button>
+              <p class="result" id="correctionResult" role="status"></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="tool-panel" id="merger" aria-labelledby="merger-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Column A + Column B</p>
+              <h2 id="merger-title">Excel / CSV Column Merger</h2>
+            </div>
+            <i data-lucide="columns-3"></i>
+          </div>
+
+          <div class="tool-grid">
+            <div class="drop-zone" data-drop="merger">
+              <input id="mergeFile" type="file" accept=".csv,.xlsx,.xls" />
+              <i data-lucide="table"></i>
+              <strong>Drop your sheet</strong>
+              <span>Merged output is written to column C</span>
+            </div>
+
+            <div class="controls">
+              <label for="mergeJoiner">Join with</label>
+              <input id="mergeJoiner" type="text" value=" " maxlength="8" aria-label="Join with" />
+              <label class="check-row" for="mergeSkipHeader">
+                <input id="mergeSkipHeader" type="checkbox" checked />
+                Skip first row
+              </label>
+              <button class="primary-action" type="button" id="mergeButton">
+                <i data-lucide="download"></i>
+                Merge & Download
+              </button>
+              <p class="result" id="mergeResult" role="status"></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="tool-panel" id="separator" aria-labelledby="separator-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Lines to clean values</p>
+              <h2 id="separator-title">Line to Comma Separator</h2>
+            </div>
+            <i data-lucide="text-cursor-input"></i>
+          </div>
+
+          <div class="separator-grid">
+            <label class="text-box">
+              Input
+              <textarea id="separatorInput" placeholder="225&#10;226&#10;227"></textarea>
+            </label>
+            <label class="text-box">
+              Output
+              <textarea id="separatorOutput" readonly placeholder="225,226,227"></textarea>
+            </label>
+          </div>
+
+          <div class="action-row">
+            <label for="separatorValue">Separator</label>
+            <input id="separatorValue" type="text" value="," maxlength="6" />
+            <button class="secondary-action" type="button" id="convertButton">
+              <i data-lucide="wand-sparkles"></i>
+              Convert
+            </button>
+            <button class="primary-action" type="button" id="copyButton">
+              <i data-lucide="copy"></i>
+              Copy
+            </button>
+          </div>
+          <p class="result" id="separatorResult" role="status"></p>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
